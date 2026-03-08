@@ -30,27 +30,41 @@ def is_equal(list1, list2):
 def add_first(old_head, node):
     """
     This function takes in two nodes, the old_head node will be the node that was previously the head of the list, the `node` will be the node that will replace the old head of the list.
-  
+
     Parameters:
     old_head (ListNode): old head of the linked list
     node (ListNode): node to be set to the new head of the list
-  
+
     Returns:
     ListNode: the new head of the list
     """
-    pass
+    node.next = old_head
+    
+    return node
+    
 
 def get_last_two_nodes(head):
     """
     This function accepts the head of a linked list and returns the last two nodes in the linked list.
-  
+
     Parameters:
     head (ListNode): the head of the linked list from which we want to find the last two nodes
-  
+
     Returns:
     tuple(ListNode, ListNode): the last two nodes of the linked list, in the order in which they appear in the list
     """
-    pass
+    if not head:
+        return None, None
+
+    elif not head.next:
+        return None, head
+    
+    cur = head
+    while cur.next and cur.next.next:
+        cur = cur.next
+    
+    return cur, cur.next
+
 
 
 def rotate_list(head, k):
@@ -58,12 +72,23 @@ def rotate_list(head, k):
     This function accepts the head of a linked list, `head`, and the amount of rotations to perform on the list, `k`.
 
     Given the `head` and `k` rotations, return the new head of the linked list.
-  
+
     Parameters:
     head (ListNode): the head of the linked list from which we want to find the last two nodes
     k (int): the number of times to rotate the linked list
-  
+
     Returns:
     ListNode: the new head of the linked list after k rotations
     """
-    pass
+    count = 0 
+    if not head or not head.next or k == 0:
+        return head
+    
+    cur = head
+    while cur and count < k:
+        last_2, last_1 = get_last_two_nodes(head)
+        head = add_first(head, last_1)
+        last_2.next = None
+        count += 1
+
+    return head

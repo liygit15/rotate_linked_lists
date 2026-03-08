@@ -22,7 +22,7 @@ def test_add_first_empty_list():
     resulting_list = add_first(list, new_node)
 
     #Assert
-    assert resulting_list is None
+    assert resulting_list is new_node
 
 def test_add_first_single_list():
     #Arrange
